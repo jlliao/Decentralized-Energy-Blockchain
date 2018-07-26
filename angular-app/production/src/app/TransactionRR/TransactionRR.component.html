@@ -1,0 +1,62 @@
+
+
+<div class="container">
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+
+  <div class="row">
+      <h2> Prosumer to Consumer Transaction </h2>
+  </div>
+
+  <div class="row">
+    <br>
+  </div>
+
+  <div class="row RR">
+    <div *ngIf="transactionFrom" class="col-md-offset-3 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Enter Transaction Info</strong></div>
+        <div class="panel-body">
+          <form [formGroup]="myForm">
+              
+            <p>Energy Token exchanged (kwh): <input formControlName="tokenValue" type="number" step='any' class="form-control inlineInput">
+              </p>
+            
+            <p>Rate: <strong>1 Coins / kwh / Token </strong>
+            </p>
+            <br>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!transactionFrom" class="col-md-offset-3 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Transaction Executed</strong></div>
+        <div class="panel-body">
+        <p>From Prosumer to Consumer</p>
+          <form [formGroup]="myForm">
+            <p>Transaction Value: {{transactionValue}} Token</p>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">  
+    <div *ngIf="transactionFrom" class="col-md-offset-4 col-md-4">
+      <button (click)="execute(form);" type="button" class="btn btn-success" data-toggle="modal" >Execute Transaction</button>	  
+    </div>
+  </div>
+
+  <div class="row">
+    <br>
+    <br>
+  </div>
+
+
+</div>

@@ -1,0 +1,171 @@
+swagger: "2.0"
+
+info:
+  description: "The Trading chaincode can read/write Transactions
+    onto the blockchain and can expose these functions as REST API.
+    THIS SAMPLE CODE MAY BE USED SOLELY AS PART OF THE TEST AND EVALUATION OF THE SAP CLOUD PLATFORM
+    BLOCKCHAIN SERVICE (THE “SERVICE”) AND IN ACCORDANCE WITH THE AGREEMENT FOR THE SERVICE.
+    THIS SAMPLE CODE PROVIDED “AS IS”, WITHOUT ANY WARRANTY, ESCROW, TRAINING, MAINTENANCE, OR
+    SERVICE OBLIGATIONS WHATSOEVER ON THE PART OF SAP."
+  version: "1.0"
+  title: "trading"
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+parameters:
+  id:
+    name: id
+    in: path
+    description: id of the account
+    required: true
+    type: string
+    maxLength: 64
+definitions:
+  account:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      coins:
+        type: integer
+      token:
+        type: integer
+  updateAccount:
+    type: object
+    properties:
+      name:
+        type: string
+      coins:
+        type: integer
+      token:
+        type: integer
+  transaction:
+    type: array
+    items:
+      type: object
+      properties:
+        consumer:
+          type: string
+        producer:
+          type: string
+        transaction:
+          type: integer
+
+
+paths:
+
+  /transact:
+
+    post:
+      operationId: transact
+      summary: transact energy between accounts
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: newTransaction
+        description: New Transaction
+        required: true
+        schema:
+          $ref: '#/definitions/transaction'
+      responses:
+        200:
+          description: Transaction Written
+        500:
+          description: Failed
+
+  /create:
+
+    post:
+      operationId: create
+      summary: Create Account by ID
+      parameters:
+      - in: body
+        name: account
+        description: Account Info
+        required: true
+        schema:
+          $ref: '#/definitions/account' 
+      responses:
+        200:
+          description: OK
+        500:
+          description: Failed
+
+
+  /{id}:
+
+    get:
+      operationId: read
+      summary: Read Account by Account ID
+      parameters:
+      - $ref: '#/parameters/id'
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK
+        500:
+          description: Failed
+    delete:
+      operationId: delete
+      summary: Remove Account by Account ID
+      parameters:
+      - $ref: '#/parameters/id'
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK
+        500:
+          description: Failed
+    
+  /{id}/update:
+
+    post:
+      operationId: update
+      summary: Update Account by ID
+      consumes:
+      - application/json
+      parameters:
+      - $ref: '#/parameters/id'
+      - in: body
+        name: updateAccount
+        description: Coins and token of Account
+        required: true
+        schema:
+          $ref: '#/definitions/updateAccount'
+      responses:
+        200:
+          description: OK
+        500:
+          description: Failed
+
+  /{id}/history:
+
+    get:
+      operationId: history
+      summary: Return history by ID
+      consumes:
+      - application/json
+      parameters:
+      - $ref: '#/parameters/id'
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                timestamp:
+                  type: string
+                value:
+                  type: string
+        500:
+          description: Failed
