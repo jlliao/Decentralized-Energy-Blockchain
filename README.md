@@ -1,7 +1,7 @@
 # Decentralized Energy with Hyperledger Fabric
 
 <div style='border: 2px solid #f00;'>
-  <img width="600" src="images/app_intro.png">
+  <img width="600" src="images/app_intro.gif">
 </div>
 </br>
 
@@ -255,7 +255,7 @@ If you do not have a Raspberry Pi and still wish to simulate the IoT functionali
 Then, load your IoT data from the dashboard in the angular app.
 
 <div style='border: 2px solid #f00;'>
-  <img width="600" src="images/app_update.png">
+  <img width="600" src="images/app_update.gif">
 </div>
 </br>
 
