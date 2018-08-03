@@ -3,9 +3,9 @@ package main
 //=================================================================================================
 //========================================================================================== IMPORT
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"bytes"
 	"time"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
@@ -16,21 +16,22 @@ import (
 //============================================================================= BLOCKCHAIN DOCUMENT
 // Account writes string to the blockchain (as JSON object) for a specific key
 type Account struct {
-	ID  	   string `json:"id"`
-	Name	   string `json:"name"`
-	Coins      int    `json:"coins"`
-	Token      int    `json:"token"`
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Coins int    `json:"coins"`
+	Token int    `json:"token"`
 }
 
 type UpdatedAccount struct {
-	Name       string `json:"name"`
-	Coins      int    `json:"coins"`
-	Token      int    `json:"token"`
+	Name  string `json:"name"`
+	Coins int    `json:"coins"`
+	Token int    `json:"token"`
 }
 
 type Transact struct {
-	Consumer   	string `json:"consumer"`
-	Producer   	string `json:"producer"`
+	Timestamp   string `json:"timestamp"`
+	Consumer    string `json:"consumer"`
+	Producer    string `json:"producer"`
 	Transaction int    `json:"transaction"`
 }
 
@@ -83,7 +84,7 @@ func (t *EnergyChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response
 		return t.history(stub, args)
 	default:
 		logger.Warningf("Invoke('%s') invalid!", function)
-		return shim.Error("Invalid method! Valid methods are 'create|update|delete|read|'!")
+		return shim.Error("Invalid method! Valid methods are 'read|create|update|transact|delete|history'!")
 	}
 }
 
@@ -101,7 +102,6 @@ func (t *EnergyChainCode) create(stub shim.ChaincodeStubInterface, args []string
 	if err != nil {
 		return shim.Error("Account Data is Corrupted")
 	}
-
 
 	// ==== Input sanitation ====
 	fmt.Println("- start init account")
@@ -167,7 +167,6 @@ func (t *EnergyChainCode) read(stub shim.ChaincodeStubInterface, args []string) 
 //
 func (t *EnergyChainCode) update(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
-
 	if len(args) != 2 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
 	}
@@ -197,7 +196,7 @@ func (t *EnergyChainCode) update(stub shim.ChaincodeStubInterface, args []string
 	}
 	accountToUpdate.Coins = newCoins //change the coins value
 	accountToUpdate.Token = newToken //change the token value
-	accountToUpdate.Name = newName //change the name
+	accountToUpdate.Name = newName   //change the name
 
 	accountJSONasBytes, _ := json.Marshal(accountToUpdate)
 	err = stub.PutState(id, accountJSONasBytes) //rewrite the account
@@ -225,11 +224,20 @@ func (t *EnergyChainCode) transact(stub shim.ChaincodeStubInterface, args []stri
 	}
 
 	for _, transact := range transacts {
-		consumer := transact.Consumer // ID of Consumer
-		producer := transact.Producer // ID of Producer
+		timestamp := transact.Timestamp          // Timestamp of Transaction
+		consumer := transact.Consumer            // ID of Consumer
+		producer := transact.Producer            // ID of Producer
 		transactionValue := transact.Transaction // transaction value
 		if err != nil {
 			return shim.Error("3rd argument must be a numeric string")
+		}
+		// Validate the this transaction has not been posted before
+		transactionAsBytes, err := stub.GetState(timestamp)
+		if err != nil {
+			return shim.Error("Failed to get account: " + err.Error())
+		} else if transactionAsBytes != nil {
+			fmt.Println("This transaction already exists: " + timestamp)
+			continue // skip the one that has been posted
 		}
 
 		// Validate that IDs exist and extract ids, coins and token
@@ -249,7 +257,7 @@ func (t *EnergyChainCode) transact(stub shim.ChaincodeStubInterface, args []stri
 			return shim.Error(err.Error())
 		}
 
-		if producer == "ID000" { //don't take coins for SUN
+		if producer == "ID000" { //don't get coins from SUN
 			consumerToUpdate.Token += transactionValue
 		} else {
 			consumerToUpdate.Coins -= transactionValue
@@ -278,11 +286,24 @@ func (t *EnergyChainCode) transact(stub shim.ChaincodeStubInterface, args []stri
 		if err != nil {
 			return shim.Error(err.Error())
 		}
+
+		// ==== Create transact object and marshal to JSON ====
+		transactionToAdd := &Transact{timestamp, consumer, producer, transactionValue}
+		transactionJSONasBytes, err := json.Marshal(transactionToAdd)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
+		// === Save transaction to state ===
+		err = stub.PutState(timestamp, transactionJSONasBytes)
+		if err != nil {
+			return shim.Error(err.Error())
+		}
+
 	}
 
 	return shim.Success(nil)
 }
-
 
 //=================================================================================================
 //========================================================================================== DELETE
@@ -335,7 +356,7 @@ func (t *EnergyChainCode) history(stub shim.ChaincodeStubInterface, args []strin
 			buffer.WriteString(",")
 		}
 
-		if (string(response.Value) != "") {
+		if string(response.Value) != "" {
 			buffer.WriteString("{\"timestamp\":\"")
 			buffer.WriteString(time.Unix(response.Timestamp.Seconds, int64(response.Timestamp.Nanos)).Format(time.Stamp))
 			buffer.WriteString("\", \"value\":")

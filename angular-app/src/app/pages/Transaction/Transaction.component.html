@@ -1,0 +1,44 @@
+
+
+<div class="container">
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+
+  <div class="row">
+    <div *ngIf ="transactionFrom" class="col-lg-8 mb-4">
+      <h3>Transfer Energy from Prosumer to Consumer</h3>
+      <form [formGroup]="myForm">
+        <div class="control-group form-group">
+          <div class="controls">
+            <label>Prosumer: </label>
+            <input formControlName="prosumerName" type="text" class="form-control" placeholder={{prosumerName}} readonly>
+          </div>
+        </div>
+        <div class="control-group form-group">
+          <div class="controls">
+            <label>Consumer:</label>
+            <input formControlName="consumerName" type="text" class="form-control" placeholder={{consumerName}} readonly>
+          </div>
+        </div>
+        <div class="control-group form-group">
+          <div class="controls">
+            <label>Energy Transfer(kwh):</label>
+            <input formControlName="tokenValue" type="number" step='any' class="form-control">
+          </div>
+        </div>
+        <button (click)="add();" type="submit" class="btn btn-primary" data-toggle >Execute Transaction</button>
+      </form>
+    </div>
+
+    <div *ngIf ="!transactionFrom" class="col-lg-8 mb-4">
+      <h3>Transaction Done</h3>
+      <form [formGroup]="myForm">
+        <p>This transaction costs {{transactionValue}} coins</p>
+      </form>
+    </div>
+
+  </div>
+
+</div>

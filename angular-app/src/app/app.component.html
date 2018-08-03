@@ -1,43 +1,45 @@
 <div id="wrapper" class="toggled">
 
-  <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-              <a href="#">
-                  Decentralized Energy
-              </a>
-          </li>
-          <li>
-              <a [routerLink]="['/Dashboard']">Dashboard</a>
-          </li>
-          <li>
-              <a [routerLink]="['/Resident']">Prosumer</a>
-          </li>
-          <li>
-              <a [routerLink]="['/ResidentCar']">Consumer</a>
-          </li>
-          <li>
-              <a [routerLink]="['/TransactionRR']">Transaction</a>
-          </li>
-          <li>
-              <a [routerLink]="['/About']">About</a>
-          </li>
-          <li>
-            <br>
-          </li>
-          <li>
-              <img src="assets/sap-white-logo.png" alt="">
-          </li>
-      </ul>
-  </div>
-  <!-- /#sidebar-wrapper -->
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Decentralized Energy
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/Dashboard']">Dashboard</a>
+            </li>
+            <li>
+                <a [routerLink]="['/Prosumer']">Prosumer</a>
+            </li>
+            <li>
+                <a [routerLink]="['/Consumer']">Consumer</a>
+            </li>
+            <li>
+                <a [routerLink]="['/Transaction']">Transaction</a>
+            </li>
+            <li>
+                <a [routerLink]="['/About']">About</a>
+            </li>
+            <li>
+                <br>
+            </li>
+            <li>
+                <img src="assets/sap-logo.png" alt="">
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-      <router-outlet></router-outlet>
-  </div>
-  <!-- /#page-content-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <h3>BTS SEA Blockchain Peer-to-Peer Trading</h3>
+        <hr>
+        <router-outlet></router-outlet>
+    </div>
+    <!-- /#page-content-wrapper -->
 
 </div>
 <!-- /#wrapper -->

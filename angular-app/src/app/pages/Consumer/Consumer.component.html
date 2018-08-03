@@ -1,0 +1,41 @@
+
+
+<div class="container">
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+  </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+		<strong>Success:</strong> {{successMessage}}
+	</div>
+
+  <div class="row">
+    <div class="col-lg-8 mb-4">
+      <h3>Update Consumer Account</h3>
+      <form [formGroup]="myForm">
+        <div class="control-group form-group">
+          <div class="controls">
+            <label>Full Name:</label>
+            <input formControlName="name" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="control-group form-group">
+          <div class="controls">
+            <label>Initial Coins Value:</label>
+            <input formControlName="coinsValue" type="number" step='any' class="form-control">
+          </div>
+        </div>
+        <div class="control-group form-group">
+          <div class="controls">
+            <label>Initial Energy Balance(kwh):</label>
+            <input formControlName="tokenValue" type="number" step='any' class="form-control">
+          </div>
+        </div>
+        <button (click)="add();" type="submit" class="btn btn-primary" data-toggle >Add Consumer</button>
+      </form>
+    </div>
+
+  </div>
+
+</div>

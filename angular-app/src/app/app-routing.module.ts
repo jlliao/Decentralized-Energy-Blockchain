@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
 
-import { ResidentComponent } from './Resident/Resident.component';
-import { ResidentCarComponent } from './ResidentCar/ResidentCar.component';
+import { ProsumerComponent } from './pages/Prosumer/Prosumer.component';
+import { ConsumerComponent } from './pages/Consumer/Consumer.component';
 
-import { TransactionRRComponent } from './TransactionRR/TransactionRR.component';
+import { TransactionComponent } from './pages/Transaction/Transaction.component';
 
-import { DashboardComponent } from './Dashboard/Dashboard.component';
+import { DashboardComponent } from './pages/Dashboard/Dashboard.component';
 
 
 const routes: Routes = [
@@ -17,11 +17,11 @@ const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'About', component: AboutComponent },
 
-    { path: 'Resident', component: ResidentComponent},
+    { path: 'Prosumer', component: ProsumerComponent},
 
-    { path: 'ResidentCar', component: ResidentCarComponent},
+    { path: 'Consumer', component: ConsumerComponent},
 
-    { path: 'TransactionRR', component: TransactionRRComponent },
+    { path: 'Transaction', component: TransactionComponent },
 
     { path: 'Dashboard', component: DashboardComponent },
 

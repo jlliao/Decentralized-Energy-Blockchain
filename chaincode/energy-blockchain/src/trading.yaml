@@ -49,6 +49,8 @@ definitions:
     items:
       type: object
       properties:
+        timestamp:
+          type: string
         consumer:
           type: string
         producer:

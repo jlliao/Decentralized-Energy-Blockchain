@@ -1,19 +1,26 @@
+# simlate_pi.py - simulate action on raspberry pi
+
 import requests
 import random
 import time
 
 payload = []
-myjson_id = "" # edit with your myjson id
+
+SUN_ID = "ID000"
+CONSUMER_ID = "ID100"
+PROSUMER_ID = "ID101"
+MYJSON_URL = "https://api.myjson.com/bins/1g3idq"
 
 # create unit tests
 for i in range(10):
-    random_pair = random.choice([['ID101', 'ID100'], ['ID100', 'ID000']])
+    random_pair = random.choice([[CONSUMER_ID, PROSUMER_ID], [PROSUMER_ID, SUN_ID]])
     consumerID = random_pair[0]
     producerID = random_pair[1]
     transact_value = random.randint(1, 10)
-    data = {'timestamp':int(round(time.time() * 1000)), 'consumer': consumerID, 'producer': producerID, 'transaction': transact_value}
+    data = {'timestamp':str(int(round(time.time() * 1000))), 'consumer': consumerID, 'producer': producerID, 'transaction': transact_value}
     payload.append(data)
     time.sleep(0.2)
 
-r = requests.put("https://api.myjson.com/bins/" + myjson_id, json = payload)
-print(r.status_code)
+r = requests.put(MYJSON_URL, json = payload)
+if int(r.status_code) == 200:
+    print('Unit test created in IoT server')

@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  
+  <!-- Page Heading -->
+  <h1 class="my-4">Decentralized Energy
+    <small>SAP Blockchain</small>
+  </h1>
+
+  <div class="row">
+    <div class="col-md-12">
+      <p class=""> This Blockchain application demonstrates energy sharing on a network among peers on a grid. The energy trade is based
+        on exchanging coins for green energy provided. </p>
+      <p class=""> Find more detail
+        <a [routerLink]="['/About']"> about the application. </a>
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h4> Step1 - Create and Update Participants </h4>
+
+  <br>
+
+  <div class="row">
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <a [routerLink]="['/Prosumer']">
+          <img class="card-img-top" src="assets/house-prosumer.jpg" alt="">
+        </a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a [routerLink]="['/Prosumer']">Add Prosumer</a>
+          </h4>
+          <p class="card-text">Prosumers own coins and energy tokens that can be traded with other prosumers and consumers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <a [routerLink]="['/Consumer']">
+          <img class="card-img-top" src="assets/car-consumer.jpg" alt="">
+        </a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a [routerLink]="['/Consumer']">Add Consumer</a>
+          </h4>
+          <p class="card-text">Consumers own coins and energy tokens that can be traded with other prosumers and consumers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <h4> Step2 - Execute Transactions </h4>
+
+  <br>
+
+  <div class="row">
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <a [routerLink]="['/Transaction']">
+          <img class="card-img-top" src="assets/transaction.jpg" alt="">
+        </a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a [routerLink]="['/Transaction']">Prosumer to Consumer</a>
+          </h4>
+          <p class="card-text">Execute a transaction between Residents by exchanging Coins for Energy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4> Step3 - Checkout Dashboard </h4>
+
+  <br>
+
+  <div class="row">
+    <div class="col-lg-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <a [routerLink]="['/Dashboard']">
+          <img class="card-img-top" src="assets/dashboard.jpg" alt="">
+        </a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a [routerLink]="['/Dashboard']">Admin Dashboard</a>
+          </h4>
+          <p class="card-text">View Residents' Tokens and Coins, and visualization of transactions</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

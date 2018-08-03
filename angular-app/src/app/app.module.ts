@@ -1,22 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
+import { AuthInterceptor } from './services/httpinterceptor' // authorization interceptor
 import { AppRoutingModule } from './app-routing.module';
-import { DataService } from './data.service';
-import { AuthService } from './auth.service';
+
+import { DataService } from './services/data.service';
+import { AuthService } from './services/auth.service';
+
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
 
-import { ResidentComponent } from './Resident/Resident.component';
-import { ResidentCarComponent } from './ResidentCar/ResidentCar.component';
+import { ProsumerComponent } from './pages/Prosumer/Prosumer.component';
+import { ConsumerComponent } from './pages/Consumer/Consumer.component';
 
-import { TransactionRRComponent } from './TransactionRR/TransactionRR.component';
+import { TransactionComponent } from './pages/Transaction/Transaction.component';
 
-import { DashboardComponent } from './Dashboard/Dashboard.component';
+import { DashboardComponent } from './pages/Dashboard/Dashboard.component';
 
 
 @NgModule({
@@ -25,10 +28,10 @@ import { DashboardComponent } from './Dashboard/Dashboard.component';
     HomeComponent,
     AboutComponent,
 
-    TransactionRRComponent,
+    TransactionComponent,
 
-    ResidentComponent,
-    ResidentCarComponent,
+    ProsumerComponent,
+    ConsumerComponent,
 
     DashboardComponent,
 		
@@ -38,12 +41,17 @@ import { DashboardComponent } from './Dashboard/Dashboard.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    HttpModule
+    AppRoutingModule
   ],
   providers: [
     DataService,
-    AuthService
+    AuthService,
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
