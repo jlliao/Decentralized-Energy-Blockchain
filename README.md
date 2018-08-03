@@ -189,7 +189,7 @@ For this meta information, you need a `chaincode.yaml` file. This file has two a
 
 ```yaml
 Id:       com-sap-icn-blockchain-p2pEnergy
-Version:  47
+Version:  1
 ```
 
 
@@ -226,10 +226,10 @@ To install the Angular app, go inside the `angular-app` folder, and type below i
 npm install
 ```
 
-To launch the app:
+To launch the app locally:
 
 ```
-npm start
+npm run dev
 ```
 
 The application should now be running at:
@@ -248,11 +248,11 @@ Once the application opens, create Prosumer and Consumer and fill in dummy data.
 
 This application can also integrate IoT device, such as Raspberry Pi, to execute transaction.
 
-To start running your Raspberry Pi and simulate the process of energy generation, simply copy `raspberry-pi.py` inside the `IoT` folder and run it on the Raspberry Pi. Please configure your pin setup and [myjson](http://myjson.com) url (We used my myjson to store transaction data rather than directly calling SAP Hyperledger Service because this service is only internally available in SAP for now, so the application has to be the mid-man between Raspberry Pi and SAP Hyperledger Fabric). 
+To start running your Raspberry Pi and simulate the process of energy generation, simply copy `raspberry-pi.py` inside the `IoT` folder and run it on the Raspberry Pi. Please configure your pin setup and [myjson](https://myjson.com) url (We used my myjson to store transaction data rather than directly calling SAP Hyperledger Service because this service is only internally available in SAP for now, so the application has to be the mid-man between Raspberry Pi and SAP Hyperledger Fabric). 
 
 If you do not have a Raspberry Pi and still wish to simulate the IoT functionality, configure the simple simulator `simulate_pi.py`, and run it from your local machine.
 
-Then, load your IoT data from the dashboard in the angular app.
+Then, the angular app would automatically capture data post by Raspberry Pi and update blockchain and its dashboard.
 
 <div style='border: 2px solid #f00;'>
   <img width="600" src="images/app_update.gif">
