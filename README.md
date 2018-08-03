@@ -282,7 +282,7 @@ The Angular Application can be deployed to SAP Cloud Platform.
 
 Because SAP Cloud Platform is based on Cloud Foundry, an open source cloud application platform, Follow [these instructions](https://docs.cloudfoundry.org/buildpacks/node/node-tips.html) to deploy the angular app to SAP Cloud Plaform.
 
-The production folder includes `server.js` file and `package.json` file that are ready for cloud foundry deployment. Navigate to the production folder and push the application.
+The folder includes `server.js` file and `package.json` file that are ready for cloud foundry deployment. Simple push the application.
 
 
 ## Additional Resources
