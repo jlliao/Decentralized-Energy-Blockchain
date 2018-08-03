@@ -14,7 +14,7 @@ GPIO.setup(18, GPIO.IN)  # set up your pin for consumer
 SUN_ID = "ID000"
 CONSUMER_ID = "ID100"
 PROSUMER_ID = "ID101"
-MYJSON_URL = "https://api.myjson.com/bins/1g3idq" # IoT Server
+MYJSON_URL = "" # IoT Server - type your myjson api url
 
 transaction_list = []
 

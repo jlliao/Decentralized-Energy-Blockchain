@@ -10,7 +10,7 @@ import { Account, UpdateAccount, Transaction } from './response';
 @Injectable()
 export class DataService {
     private serverUrl = "https://hyperledger-fabric.cfapps.sap.hana.ondemand.com/api/v1";
-    private chaincodeId = "ce257bf4-9731-4f47-b271-842c83addcd5-com-sap-blockchain-p2pEnergy";
+    private chaincodeId = ""; // type your own chaincode id
     private actionUrl = this.serverUrl + "/chaincodes/" + this.chaincodeId + "/latest";
     private myjsonUrl = "https://api.myjson.com/bins/1g3idq"; // store data from Raspberry Pi
 

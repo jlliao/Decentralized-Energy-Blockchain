@@ -1,4 +1,4 @@
 import requests
 
-r = requests.put("https://api.myjson.com/bins/1g3idq", json=[])
+r = requests.put("", json=[]) # type your myjson api url
 print(r.status_code)

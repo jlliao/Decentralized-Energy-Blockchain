@@ -9,7 +9,7 @@ payload = []
 SUN_ID = "ID000"
 CONSUMER_ID = "ID100"
 PROSUMER_ID = "ID101"
-MYJSON_URL = "https://api.myjson.com/bins/1g3idq"
+MYJSON_URL = "" # type your myjson api url
 
 # create unit tests
 for i in range(10):
